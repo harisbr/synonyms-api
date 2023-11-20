@@ -12,12 +12,15 @@ A simple Express API that exposes endpoints for manipulation with words and thei
 1. npm install (to install all necessary dependencies)
 2. create .env file and define ENVIRONMENT and PORT variables (default values dev and 3000) - optional
 3. npm run dev (to start the server locally)
-4. Test getting synonyms for word 'beautiful' (inserted at startup)
+4. Test the app by searching for synonyms of word 'beautiful' (inserted at startup)
 
 **Testing**
 
 1. npm run test (to run all tests)
 2. npm run test-cov (to run test coverage)
+
+**SwaggerUI**
+Swagger documentation available on /api-docs
 
 _Notes_
 Please install eslint and enable linter rules in your IDE (.eslintrc.json)

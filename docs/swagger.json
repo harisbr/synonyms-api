@@ -1,0 +1,147 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Synonyms API",
+    "version": "1.0.0",
+    "description": "Express server for synonyms CRUD operations"
+  },
+  "tags": [
+    {
+      "name": "Synonyms",
+      "description": "Operation for synonyms manipulation"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "insert": {
+        "type": "object",
+        "properties": {
+          "word": {
+            "type": "string",
+            "minLength": 1,
+            "example": "house"
+          },
+          "synonyms": {
+            "type": "array",
+            "items": { "type": "string" },
+            "example": ["home", "apartment"]
+          }
+        }
+      },
+      "synonyms": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "parameters": {
+      "word": {
+        "name": "word",
+        "description": "requested word - must exist",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/synonyms": {
+      "post": {
+        "summary": "Insert new word with corresponding synonyms",
+        "tags": ["Synonyms"],
+        "requestBody": {
+          "description": "Body containing word and synonyms",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/insert"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data provided"
+          }
+        }
+      }
+    },
+    "/api/synonyms/{word}": {
+      "get": {
+        "summary": "Get synonyms of provided word",
+        "tags": ["Synonyms"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/word"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Word and its corresponding synonyms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/synonyms"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Word not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update synonyms of an existing word",
+        "tags": ["Synonyms"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/word"
+          }
+        ],
+        "requestBody": {
+          "description": "List of synonyms to be mapped to provided word",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                    "$ref": "#/components/schemas/synonyms"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated word with provided synonyms"
+          },
+          "404": {
+            "description": "Word not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete word and its synonyms",
+        "tags": ["Synonyms"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/word"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted word and its synonyms"
+          },
+          "404": {
+            "description": "Word not found"
+          }
+        }
+      }
+    }
+  }
+}
