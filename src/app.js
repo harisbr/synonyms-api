@@ -21,7 +21,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use('/api', routes);
 
 app.use((err, req, res) => {
-  logger.error(`Unexpected error ocurred: ${JSON.stringify(err)}`);
+  logger.error(`Unexpected error ocurred: ${err}`);
   res
     .status(STATUS_CODES.INTERNAL_ERROR)
     .send(ERROR_MESSAGES.GLOBAL_ERROR_MESSAGE);
