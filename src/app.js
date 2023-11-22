@@ -20,8 +20,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use('/api', routes);
 
-app.use((err, req, res) => {
-  logger.error(`Unexpected error ocurred: ${err}`);
+app.use((err, req, res, next) => {
+  logger.error(`Unexpected error ocurred: ${JSON.stringify(err)}`);
   res
     .status(STATUS_CODES.INTERNAL_ERROR)
     .send(ERROR_MESSAGES.GLOBAL_ERROR_MESSAGE);
